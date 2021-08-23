@@ -2,7 +2,7 @@
 
 A simple image generator that iterates through base image collections in the in/ folder and for each base image replaces colors according to defined palettes, followed by recursively applying optional accessories. The result is dumped to the out/ folder.
 
-For example, given the base image ![Base image](./in/d-rex/d-rex/png)
+For example, given the base image ![Base image](./in/d-rex/d-rex.png)
 
 Accessories ![hands](./in/d-rex/hands/mug.png) ![head](./in/d-rex/head/beanie.png)
 
