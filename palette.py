@@ -8,5 +8,6 @@ class Palette:
 
 TargetPalettes = [
     Palette("pink-on-yellow", (241,249,2), (201,0,181), (71,2,64)),
-    Palette("red-on-green", (107,252,40), (249,14,2), (79,3,0))
+    Palette("red-on-green", (107,252,40), (249,14,2), (79,3,0)),
+	Palette("orange-on-red", (255,0,63), (255,144,0), (132,70,0))
     ]

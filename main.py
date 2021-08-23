@@ -11,11 +11,10 @@ if not os.path.exists(inPath):
 if not os.path.exists(outPath):
     os.makedirs(outPath)
 
-ext = ('.png')
 for f in os.listdir(inPath):
-    if f.endswith(ext):
-        path = "{0}{1}".format(inPath, f)
-        Explode(os.path.splitext(f)[0], path, outPath)  
-    else:
-        print("Ignoring unsupported extension {0}".format(f))
-        continue
+    concreteOutPath = "{0}{1}".format(outPath, f)
+    if not os.path.exists(concreteOutPath):
+        os.makedirs(concreteOutPath)
+
+    concreteInPath = "{0}{1}".format(inPath, f)
+    Explode(concreteInPath, concreteOutPath)
