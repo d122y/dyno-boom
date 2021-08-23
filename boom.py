@@ -3,24 +3,24 @@ import numpy as np
 import os
 from palette import Palette, TargetPalettes
 
-def Explode(inPath, outPath):
-    print("Processing {0}".format(inPath))
+def Explode(in_path, out_path):
+    print("Processing {0}".format(in_path))
 
-    accessoriesFolders = []
-    for f in os.listdir(inPath):
-        pathname = "{0}/{1}".format(inPath, f)
+    accessories_folders = []
+    for f in os.listdir(in_path):
+        pathname = "{0}/{1}".format(in_path, f)
         if os.path.isdir(pathname):
-            accessoriesFolders.append(f)
+            accessories_folders.append(f)
         else:
-            baseFilePath = pathname
-            fileName = os.path.splitext(f)[0]
+            base_file_path = pathname
+            filename = os.path.splitext(f)[0]
 
-    if not baseFilePath:
+    if not base_file_path:
         print("Couldn't find base image")
 
-    print("Base image {0}".format(baseFilePath))
-    print("Accessories {0}".format(accessoriesFolders))
-    image = Image.open(baseFilePath).convert('RGB')
+    print("Base image {0}".format(base_file_path))
+    print("Accessories {0}".format(accessories_folders))
+    image = Image.open(base_file_path).convert('RGB')
 
     # Get the size of the image
     width, height = image.size
@@ -70,13 +70,13 @@ def Explode(inPath, outPath):
             data[:,:,:3][bg_mask] = palette.bgColor
 
             out_image = Image.fromarray(data)
-            out_image_filename = "{0}_{1}".format(fileName, palette.name)
-            out_image_pathname = "{0}/{1}.png".format(outPath, out_image_filename)
+            out_image_filename = "{0}_{1}".format(filename, palette.name)
+            out_image_pathname = "{0}/{1}.png".format(out_path, out_image_filename)
             out_image.save(out_image_pathname)
 
-            accessorize(inPath, outPath, accessoriesFolders, out_image_filename, data)
+            accessorize(in_path, out_path, accessories_folders, out_image_filename, data)
 
-def accessorize(in_path, out_path, accessories_folders, base_file_name, base_image_data):
+def accessorize(in_path, out_path, accessories_folders, base_filename, base_image_data):
     for i in range(len(accessories_folders)):
         acc = accessories_folders[i]
         acc_dirpath = "{0}/{1}".format(in_path, acc)
@@ -84,11 +84,11 @@ def accessorize(in_path, out_path, accessories_folders, base_file_name, base_ima
         for acc_name in acc_names:
             acc_pathname = "{0}/{1}".format(acc_dirpath, acc_name)
             acc_filename = os.path.splitext(acc_name)[0]
-            print("For {0} appending accessory {1}".format(base_file_name, acc_filename))
+            print("For {0} appending accessory {1}".format(base_filename, acc_filename))
             acc_image = Image.open(acc_pathname).convert('RGBA')
             out_image = Image.fromarray(base_image_data)
             out_image.paste(acc_image, (0,0), mask=acc_image)
-            out_image_filename = "{0}_{1}".format(base_file_name, acc_filename)
+            out_image_filename = "{0}_{1}".format(base_filename, acc_filename)
             out_image_pathname = "{0}/{1}.png".format(out_path, out_image_filename)
             out_image.save(out_image_pathname)
 
