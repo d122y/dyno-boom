@@ -37,7 +37,7 @@ def Explode(in_path, out_path):
     shade_color = (0,0,0)
 
     # Detecting fore_color, shade_color
-    for y in range(height/2, height):
+    for y in range(int(height/2), height):
         if fore_color != (0,0,0) and shade_color != (0,0,0):
             break
 
@@ -73,8 +73,11 @@ def Explode(in_path, out_path):
             out_image_filename = "{0}_{1}".format(filename, palette.name)
             out_image_pathname = "{0}/{1}.png".format(out_path, out_image_filename)
             out_image.save(out_image_pathname)
+            out_image.close()
 
             accessorize(in_path, out_path, accessories_folders, out_image_filename, data)
+    
+    image.close()
 
 def accessorize(in_path, out_path, accessories_folders, base_filename, base_image_data):
     for i in range(len(accessories_folders)):
@@ -93,3 +96,5 @@ def accessorize(in_path, out_path, accessories_folders, base_filename, base_imag
             out_image.save(out_image_pathname)
 
             accessorize(in_path, out_path, accessories_folders[i+1:], out_image_filename, np.array(out_image))
+            acc_image.close()
+            out_image.close()
